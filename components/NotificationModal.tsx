@@ -137,8 +137,16 @@ export default function NotificationModal({ task, onClose, onSave, onDelete }: P
             )}
           </div>
 
+          {/* 注意書き */}
+          <div className="mt-4 bg-amber-50 border border-amber-100 rounded-2xl px-4 py-3 flex items-start gap-2">
+            <span className="text-amber-400 text-base flex-shrink-0">⚠️</span>
+            <p className="text-xs text-amber-700 leading-relaxed">
+              通知を受け取るには、<strong>通知時刻にこのアプリを開いたままにしてください。</strong>ブラウザを閉じると通知されません。
+            </p>
+          </div>
+
           {/* フッター */}
-          <div className="mt-6 mb-2 flex flex-col gap-2">
+          <div className="mt-4 mb-2 flex flex-col gap-2">
             <button
               onClick={handleSave}
               className="w-full py-4 rounded-2xl bg-indigo-500 text-white text-base font-semibold active:scale-[0.98] transition-all"

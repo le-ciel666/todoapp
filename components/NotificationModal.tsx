@@ -28,7 +28,7 @@ function formatDatetimeLocal(ms: number): string {
 }
 
 function minDatetimeLocal(): string {
-  return formatDatetimeLocal(Date.now() + 60_000) // 1分後以降
+  return formatDatetimeLocal(Date.now() + 60_000)
 }
 
 export default function NotificationModal({ task, onClose, onSave, onDelete }: Props) {
@@ -58,95 +58,102 @@ export default function NotificationModal({ task, onClose, onSave, onDelete }: P
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
+    <div className="fixed inset-0 z-50 flex items-end justify-center">
       {/* オーバーレイ */}
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
-      {/* モーダル本体 */}
-      <div className="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 z-10">
-        {/* ヘッダー */}
-        <div className="flex items-start justify-between mb-5">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <BellIcon className="text-indigo-500" />
-              <span className="text-xs font-semibold text-indigo-500 tracking-widest uppercase">Notification</span>
+      {/* ボトムシート */}
+      <div className="relative w-full max-w-lg bg-white rounded-t-3xl shadow-2xl z-10">
+        {/* ハンドルバー */}
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-gray-200" />
+        </div>
+
+        <div className="px-6 pb-safe">
+          {/* ヘッダー */}
+          <div className="flex items-center justify-between pt-3 mb-5">
+            <div>
+              <div className="flex items-center gap-2 mb-0.5">
+                <BellIcon className="text-indigo-500" />
+                <span className="text-xs font-semibold text-indigo-500 tracking-widest uppercase">Notification</span>
+              </div>
+              <h2 className="text-xl font-bold text-gray-800">通知を設定</h2>
             </div>
-            <h2 className="text-lg font-bold text-gray-800">通知を設定</h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-gray-300 hover:text-gray-500 transition-colors mt-0.5"
-            aria-label="閉じる"
-          >
-            <CloseIcon />
-          </button>
-        </div>
-
-        {/* タスク名 */}
-        <div className="bg-indigo-50 rounded-xl px-4 py-3 mb-5">
-          <p className="text-sm font-medium text-indigo-700 truncate">{task.text}</p>
-        </div>
-
-        {/* 送信済みの場合 */}
-        {existing?.sent && (
-          <div className="bg-green-50 border border-green-100 rounded-xl px-4 py-3 mb-5 flex items-center gap-2">
-            <span className="text-green-500 text-sm">✓</span>
-            <p className="text-sm text-green-700">この通知は送信済みです</p>
-          </div>
-        )}
-
-        {/* フォーム */}
-        <div className="space-y-4">
-          <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5">
-              メールアドレス
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => { setEmail(e.target.value); setError('') }}
-              placeholder="example@email.com"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5">
-              通知日時
-            </label>
-            <input
-              type="datetime-local"
-              value={datetime}
-              min={minDatetimeLocal()}
-              onChange={(e) => { setDatetime(e.target.value); setError('') }}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition"
-            />
-          </div>
-
-          {error && (
-            <p className="text-xs text-red-500">{error}</p>
-          )}
-        </div>
-
-        {/* フッター */}
-        <div className="mt-6 flex flex-col gap-2">
-          <button
-            onClick={handleSave}
-            className="w-full py-2.5 rounded-xl bg-indigo-500 text-white text-sm font-medium hover:bg-indigo-600 active:scale-95 transition-all"
-          >
-            保存する
-          </button>
-          {existing && !existing.sent && (
             <button
-              onClick={() => { onDelete(); onClose() }}
-              className="w-full py-2 text-xs text-gray-400 hover:text-red-400 transition-colors"
+              onClick={onClose}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 active:bg-gray-200 transition-colors"
+              aria-label="閉じる"
             >
-              通知を解除する
+              <CloseIcon />
             </button>
+          </div>
+
+          {/* タスク名 */}
+          <div className="bg-indigo-50 rounded-2xl px-4 py-3 mb-5">
+            <p className="text-base font-medium text-indigo-700 truncate">{task.text}</p>
+          </div>
+
+          {/* 送信済みの場合 */}
+          {existing?.sent && (
+            <div className="bg-green-50 border border-green-100 rounded-2xl px-4 py-3 mb-5 flex items-center gap-2">
+              <span className="text-green-500 text-lg">✓</span>
+              <p className="text-base text-green-700">この通知は送信済みです</p>
+            </div>
           )}
+
+          {/* フォーム */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-500 mb-2">
+                メールアドレス
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setError('') }}
+                placeholder="example@email.com"
+                className="w-full px-4 py-4 rounded-2xl border border-gray-200 text-base text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent bg-gray-50 focus:bg-white transition"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-500 mb-2">
+                通知日時
+              </label>
+              <input
+                type="datetime-local"
+                value={datetime}
+                min={minDatetimeLocal()}
+                onChange={(e) => { setDatetime(e.target.value); setError('') }}
+                className="w-full px-4 py-4 rounded-2xl border border-gray-200 text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent bg-gray-50 focus:bg-white transition"
+              />
+            </div>
+
+            {error && (
+              <p className="text-sm text-red-500 px-1">{error}</p>
+            )}
+          </div>
+
+          {/* フッター */}
+          <div className="mt-6 mb-2 flex flex-col gap-2">
+            <button
+              onClick={handleSave}
+              className="w-full py-4 rounded-2xl bg-indigo-500 text-white text-base font-semibold active:scale-[0.98] transition-all"
+            >
+              保存する
+            </button>
+            {existing && !existing.sent && (
+              <button
+                onClick={() => { onDelete(); onClose() }}
+                className="w-full py-3 text-sm text-gray-400 active:text-red-400 transition-colors"
+              >
+                通知を解除する
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

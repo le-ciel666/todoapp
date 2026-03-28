@@ -236,7 +236,7 @@ export default function Home() {
       )}
 
       {/* タスクリスト（スクロール可能エリア） */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto pb-24">
         {!mounted ? null : filteredTasks.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-300 pb-20">
             <div className="text-5xl mb-4">
@@ -315,8 +315,8 @@ export default function Home() {
         )}
       </div>
 
-      {/* 下部入力バー（固定） */}
-      <div className="pb-safe bg-white border-t border-gray-100 px-4 pt-3 flex-shrink-0">
+      {/* 下部入力バー（画面に完全固定） */}
+      <div className="fixed bottom-0 left-0 right-0 z-10 pb-safe bg-white border-t border-gray-100 px-4 pt-3">
         <div className="flex gap-2">
           <input
             ref={inputRef}

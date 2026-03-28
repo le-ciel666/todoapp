@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8f7f4;
+  --foreground: #1a1a1a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+@layer utilities {
+  .line-through-custom {
+    text-decoration: line-through;
+    text-decoration-color: #9ca3af;
+  }
+}
